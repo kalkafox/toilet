@@ -4,3 +4,21 @@ secure ASCII art generation, it will only output ugly things.
 
 See NEWS for the work in progress.
 
+
+
+This is Kalka speaking. No, I did NOT make this script. This is a fork from https://github.com/cacalabs/toilet
+
+Visit http://caca.zoy.org/wiki/toilet for more info. Credits go to cacalabs and https://github.com/samhocevar
+
+Thank you for making this brilliant script!
+
+
+This modified version contains different filters in the form of colors for the LGBT community. So far, these have been added:
+
+- Asexuality (filter_ace or --filter ace in the code)
+- Bisexuality (filter_bi or --filter bi in the code)
+- Pansexuality (filter_pan or --filter pan in the code)
+- Transexuality (filter_trans or --filter trans in the code)
+
+More will be added soon, and there are still some things to tweak.
+
