@@ -29,6 +29,10 @@
 
 static void filter_crop(context_t *);
 static void filter_gay(context_t *);
+static void filter_ace(context_t *);
+static void filter_pan(context_t *);
+static void filter_bi(context_t *);
+static void filter_trans(context_t *);
 static void filter_metal(context_t *);
 static void filter_flip(context_t *);
 static void filter_flop(context_t *);
@@ -47,6 +51,10 @@ const lookup[] =
 {
     { "crop", filter_crop, "crop unused blanks" },
     { "gay", filter_gay, "add a rainbow colour effect" },
+    { "ace", filter_ace, "add an asexual color effect"},
+    { "pan", filter_pan, "add a pansexual color effect"},
+    { "bi", filter_bi, "add a bisexual color effect"},
+    { "trans", filter_trans, "add a transexual color effect"},
     { "metal", filter_metal, "add a metallic colour effect" },
     { "flip", filter_flip, "flip horizontally" },
     { "flop", filter_flop, "flip vertically" },
@@ -208,6 +216,114 @@ static void filter_gay(context_t *cx)
                                  CACA_TRANSPARENT);
             caca_put_char(cx->torender, x, y, ch);
         }
+    }
+}
+
+static void filter_ace(context_t *cx)
+{
+    static unsigned char const palette[] =
+    {
+        CACA_DARKGRAY, CACA_LIGHTGRAY, CACA_WHITE, CACA_MAGENTA,
+    };
+
+    unsigned int x, y, w, h;
+
+    w = caca_get_canvas_width(cx->torender);
+    h = caca_get_canvas_height(cx->torender);
+
+    for(y = 0; y < h; y++)
+        for(x = 0; x < w; x++)
+    {
+        unsigned long int ch = caca_get_char(cx->torender, x, y);
+        int i;
+
+        if(ch == (unsigned char)' ')
+            continue;
+
+        i = ((cx->lines + y + x / 8) / 2) % 4;
+        caca_set_color_ansi(cx->torender, palette[i], CACA_TRANSPARENT);
+        caca_put_char(cx->torender, x, y, ch);
+    }
+}
+
+static void filter_pan(context_t *cx)
+{
+    static unsigned char const palette[] =
+    {
+        CACA_LIGHTMAGENTA, CACA_YELLOW, CACA_LIGHTBLUE,
+    };
+
+    unsigned int x, y, w, h;
+
+    w = caca_get_canvas_width(cx->torender);
+    h = caca_get_canvas_height(cx->torender);
+
+    for(y = 0; y < h; y++)
+        for(x = 0; x < w; x++)
+    {
+        unsigned long int ch = caca_get_char(cx->torender, x, y);
+        int i;
+
+        if(ch == (unsigned char)' ')
+            continue;
+
+        i = ((cx->lines + y + x / 8) / 2) % 3;
+        caca_set_color_ansi(cx->torender, palette[i], CACA_TRANSPARENT);
+        caca_put_char(cx->torender, x, y, ch);
+    }
+}
+
+static void filter_bi(context_t *cx)
+{
+    static unsigned char const palette[] =
+    {
+        CACA_MAGENTA, CACA_LIGHTMAGENTA, CACA_BLUE,
+    };
+
+    unsigned int x, y, w, h;
+
+    w = caca_get_canvas_width(cx->torender);
+    h = caca_get_canvas_height(cx->torender);
+
+    for(y = 0; y < h; y++)
+        for(x = 0; x < w; x++)
+    {
+        unsigned long int ch = caca_get_char(cx->torender, x, y);
+        int i;
+
+        if(ch == (unsigned char)' ')
+            continue;
+
+        i = ((cx->lines + y + x / 8) / 2) % 3;
+        caca_set_color_ansi(cx->torender, palette[i], CACA_TRANSPARENT);
+        caca_put_char(cx->torender, x, y, ch);
+    }
+}
+
+static void filter_trans(context_t *cx)
+{
+    static unsigned char const palette[] =
+    {
+        CACA_LIGHTBLUE, CACA_LIGHTMAGENTA, CACA_WHITE, CACA_LIGHTMAGENTA, CACA_LIGHTBLUE,
+    };
+
+    unsigned int x, y, w, h;
+
+    w = caca_get_canvas_width(cx->torender);
+    h = caca_get_canvas_height(cx->torender);
+
+    for(y = 0; y < h; y++)
+        for(x = 0; x < w; x++)
+    {
+        unsigned long int ch = caca_get_char(cx->torender, x, y);
+        int i;
+
+        if(ch == (unsigned char)' ')
+            continue;
+
+        i = ((cx->lines + y + x / 8) / 2) % 6;
+        caca_set_color_ansi(cx->torender, palette[i], CACA_TRANSPARENT);
+        caca_put_char(cx->torender, x, y, ch);
     }
 }
 
